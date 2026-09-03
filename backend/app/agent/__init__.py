@@ -35,6 +35,12 @@ from app.agent.authority_matrix import (
     ROLE_ACTION_PERMISSIONS,
 )
 
+from app.agent.action_recommender import (
+    recommend_actions,
+    ActionRecommendationResult,
+    CANONICAL_ACTIONS,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -57,4 +63,7 @@ __all__ = [
     "VALID_ROLES",
     "VALID_ACTIONS",
     "ROLE_ACTION_PERMISSIONS",
+    "recommend_actions",
+    "ActionRecommendationResult",
+    "CANONICAL_ACTIONS",
 ]
