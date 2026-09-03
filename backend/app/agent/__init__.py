@@ -86,6 +86,19 @@ from app.agent.telephony_service import (
     TelephonyCallSession,
 )
 
+from app.agent.telephony_audio_connector import (
+    process_twilio_recording_chunk,
+    get_next_chunk_number,
+    fetch_audio_bytes_from_url,
+    TelephonyChunkMetadata,
+)
+
+from app.agent.telephony_central_case_bridge import (
+    process_telephony_call_to_central_case,
+    get_or_create_central_case_for_call,
+    TelephonyCaseBridgeResult,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -138,4 +151,11 @@ __all__ = [
     "trigger_outbound_callback",
     "get_or_create_call_session",
     "TelephonyCallSession",
+    "process_twilio_recording_chunk",
+    "get_next_chunk_number",
+    "fetch_audio_bytes_from_url",
+    "TelephonyChunkMetadata",
+    "process_telephony_call_to_central_case",
+    "get_or_create_central_case_for_call",
+    "TelephonyCaseBridgeResult",
 ]
