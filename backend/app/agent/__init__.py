@@ -99,6 +99,12 @@ from app.agent.telephony_central_case_bridge import (
     TelephonyCaseBridgeResult,
 )
 
+from app.agent.telephony_outbound_service import (
+    send_followup_sms,
+    send_followup_call,
+    OutboundTriggerResult,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -158,4 +164,7 @@ __all__ = [
     "process_telephony_call_to_central_case",
     "get_or_create_central_case_for_call",
     "TelephonyCaseBridgeResult",
+    "send_followup_sms",
+    "send_followup_call",
+    "OutboundTriggerResult",
 ]
