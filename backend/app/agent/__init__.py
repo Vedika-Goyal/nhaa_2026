@@ -48,6 +48,16 @@ from app.agent.explanation_generator import (
     SYSTEM_PROMPT_V1,
 )
 
+from app.agent.confirmation_gate import (
+    prepare_critical_action,
+    confirm_critical_action,
+    dispatch_confirmed_action,
+    reset_confirmation_registry,
+    CriticalActionRecord,
+    CriticalConfirmationRecord,
+    DispatchResult,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -77,4 +87,11 @@ __all__ = [
     "ExplanationResult",
     "build_deterministic_fallback_explanation",
     "SYSTEM_PROMPT_V1",
+    "prepare_critical_action",
+    "confirm_critical_action",
+    "dispatch_confirmed_action",
+    "reset_confirmation_registry",
+    "CriticalActionRecord",
+    "CriticalConfirmationRecord",
+    "DispatchResult",
 ]
