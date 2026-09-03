@@ -28,6 +28,13 @@ from app.agent.risk_engine import (
     CRITICAL_TIER_MIN_SCORE,
 )
 
+from app.agent.authority_matrix import (
+    check_authority,
+    VALID_ROLES,
+    VALID_ACTIONS,
+    ROLE_ACTION_PERMISSIONS,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -46,4 +53,8 @@ __all__ = [
     "MODERATE_TIER_MAX_SCORE",
     "HIGH_TIER_MAX_SCORE",
     "CRITICAL_TIER_MIN_SCORE",
+    "check_authority",
+    "VALID_ROLES",
+    "VALID_ACTIONS",
+    "ROLE_ACTION_PERMISSIONS",
 ]
