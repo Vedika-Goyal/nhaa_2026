@@ -18,6 +18,16 @@ from app.agent.state_machine import (
     VALID_LEVELS,
 )
 
+from app.agent.risk_engine import (
+    score_flags_to_tier,
+    get_base_tier_from_svi,
+    RiskTierDecision,
+    LOW_TIER_MAX_SCORE,
+    MODERATE_TIER_MAX_SCORE,
+    HIGH_TIER_MAX_SCORE,
+    CRITICAL_TIER_MIN_SCORE,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -29,4 +39,11 @@ __all__ = [
     "get_escalated_level",
     "VALID_STATUSES",
     "VALID_LEVELS",
+    "score_flags_to_tier",
+    "get_base_tier_from_svi",
+    "RiskTierDecision",
+    "LOW_TIER_MAX_SCORE",
+    "MODERATE_TIER_MAX_SCORE",
+    "HIGH_TIER_MAX_SCORE",
+    "CRITICAL_TIER_MIN_SCORE",
 ]
