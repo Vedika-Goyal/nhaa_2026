@@ -1,0 +1,54 @@
+{
+  "svi": {
+    "score": 79.0,
+    "risk_tier": "Critical"
+  },
+  "flags": [
+    {
+      "name": "intimidation",
+      "confidence": 0.90,
+      "signals": [
+        "Keyword match: 'जान से मार' in text",
+        "Keyword match: 'धमकी' in text"
+      ],
+      "source": [
+        "text"
+      ]
+    },
+    {
+      "name": "suicidal_ideation",
+      "confidence": 0.85,
+      "signals": [
+        "Keyword match: 'जीना नहीं' in text"
+      ],
+      "source": [
+        "text"
+      ]
+    },
+    {
+      "name": "extreme_vulnerability",
+      "confidence": 0.65,
+      "signals": [
+        "Keyword match: 'बचाओ' in text",
+        "long pause: 3.8s"
+      ],
+      "source": [
+        "audio",
+        "text"
+      ]
+    }
+  ],
+  "language": {
+    "code": "hi",
+    "name": "Hindi",
+    "confidence": 0.95
+  },
+  "stt_transcript": "मुझे बचाओ, मुझे जान से मारने की धमकी मिल रही है, मुझे अब और जीना नहीं है",
+  "case_id": 101,
+  "channel": "ivrs",
+  "model_metadata": {
+    "stt_model": "whisper-base",
+    "ser_model": "wav2vec2",
+    "text_model": "google/muril-base-cased"
+  }
+}
