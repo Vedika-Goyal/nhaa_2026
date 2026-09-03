@@ -41,6 +41,13 @@ from app.agent.action_recommender import (
     CANONICAL_ACTIONS,
 )
 
+from app.agent.explanation_generator import (
+    generate_explanation,
+    ExplanationResult,
+    build_deterministic_fallback_explanation,
+    SYSTEM_PROMPT_V1,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -66,4 +73,8 @@ __all__ = [
     "recommend_actions",
     "ActionRecommendationResult",
     "CANONICAL_ACTIONS",
+    "generate_explanation",
+    "ExplanationResult",
+    "build_deterministic_fallback_explanation",
+    "SYSTEM_PROMPT_V1",
 ]
