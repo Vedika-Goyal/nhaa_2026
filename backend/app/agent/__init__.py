@@ -58,6 +58,34 @@ from app.agent.confirmation_gate import (
     DispatchResult,
 )
 
+from app.agent.silent_distress import (
+    handle_silent_distress_signal,
+    detect_dtmf_silent_signal,
+    sanitize_transcript,
+    SilentDistressResult,
+    DEFAULT_DTMF_SEQUENCE,
+)
+
+from app.agent.consistency_check import (
+    check_ai_officer_consistency,
+    ConsistencyCheckResult,
+    TIER_RANKS,
+)
+
+from app.agent.flags_formatter import (
+    format_nested_flags,
+    predict_sla_breach,
+    SLAPredictionResult,
+)
+
+from app.agent.telephony_service import (
+    generate_consent_twiml,
+    process_telephony_dtmf,
+    trigger_outbound_callback,
+    get_or_create_call_session,
+    TelephonyCallSession,
+)
+
 __all__ = [
     "PerceptionInputContract",
     "InputFlagItem",
@@ -94,4 +122,20 @@ __all__ = [
     "CriticalActionRecord",
     "CriticalConfirmationRecord",
     "DispatchResult",
+    "handle_silent_distress_signal",
+    "detect_dtmf_silent_signal",
+    "sanitize_transcript",
+    "SilentDistressResult",
+    "DEFAULT_DTMF_SEQUENCE",
+    "check_ai_officer_consistency",
+    "ConsistencyCheckResult",
+    "TIER_RANKS",
+    "format_nested_flags",
+    "predict_sla_breach",
+    "SLAPredictionResult",
+    "generate_consent_twiml",
+    "process_telephony_dtmf",
+    "trigger_outbound_callback",
+    "get_or_create_call_session",
+    "TelephonyCallSession",
 ]
