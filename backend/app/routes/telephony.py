@@ -1,10 +1,10 @@
 """
-Twilio Inbound Call Webhook Route Module (Subtask 13 & 14)
+Twilio Inbound Call Webhook Route Module (Subtask 13, 14 & 15)
 ==============================================================================
 NHAA 14566 / SIH 26093 - Telephony Integration
 ==============================================================================
 Provides FastAPI endpoints for handling Twilio inbound voice webhooks,
-consent notices, language selection, and keypad input processing.
+consent notices, language selection, keypad input, and call audio recording chunks.
 
 Configurable Environment Variables:
 - TWILIO_ACCOUNT_SID: Twilio Account SID
@@ -14,6 +14,7 @@ Configurable Environment Variables:
 TwiML Webhook Endpoints:
 - POST /api/v1/telephony/voice
 - POST /api/v1/telephony/consent
+- POST /api/v1/telephony/recording
 ==============================================================================
 """
 
@@ -30,6 +31,7 @@ from app.agent.consent_service import (
     process_consent_digit_input,
     get_or_create_consent_session,
 )
+from app.agent.telephony_audio_connector import process_twilio_recording_chunk
 
 router = APIRouter(prefix="/telephony", tags=["telephony"])
 
@@ -132,3 +134,52 @@ async def twilio_consent_digit_webhook(
     twiml_content = generate_consent_response_twiml(result)
 
     return Response(content=twiml_content, media_type="application/xml")
+
+
+@router.post("/recording", response_class=Response)
+async def twilio_recording_callback(
+    request: Request,
+    CallSid: Optional[str] = Form(None),
+    RecordingSid: Optional[str] = Form(None),
+    RecordingUrl: Optional[str] = Form(None),
+    RecordingDuration: Optional[str] = Form(None),
+    x_twilio_signature: Optional[str] = Header(None, alias="X-Twilio-Signature")
+):
+    """
+    Twilio <Record> Callback Webhook Endpoint (Subtask 15).
+
+    Receives 10-15 second call audio recording chunks and routes them directly
+    into Vedika's existing perception pipeline (STT -> SER -> Acoustic -> SVI).
+    """
+    config = get_twilio_env_config()
+    form_data = await request.form()
+    form_dict = dict(form_data)
+
+    if config["auth_token"] and x_twilio_signature:
+        request_url = str(request.url)
+        if not validate_twilio_signature(request_url, form_dict, x_twilio_signature, config["auth_token"]):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Invalid Twilio signature verification failed."
+            )
+
+    call_sid = CallSid or "SIMULATED_CALL_SID"
+    recording_sid = RecordingSid or "RE123456789"
+    recording_url = RecordingUrl or "http://test/recording.wav"
+    duration = float(RecordingDuration) if RecordingDuration else 12.0
+
+    # Route audio chunk into Vedika's perception pipeline
+    process_twilio_recording_chunk(
+        call_sid=call_sid,
+        recording_sid=recording_sid,
+        recording_url=recording_url,
+        duration_seconds=duration
+    )
+
+    twiml = """<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Say voice="Polly.Aditi">आपकी कॉल चालू है।</Say>
+    <Hangup/>
+</Response>"""
+
+    return Response(content=twiml.strip(), media_type="application/xml")
